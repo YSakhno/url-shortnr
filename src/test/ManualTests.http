@@ -1,0 +1,31 @@
+### Make short URL
+POST http://localhost:8080/shorten
+Content-Encoding: text/plain
+
+https://www.google.com/
+
+
+### Make short URL (empty content)
+POST http://localhost:8080/shorten
+Content-Encoding: text/plain
+
+
+### Make short URL (not an URL)
+POST http://localhost:8080/shorten
+Content-Encoding: text/plain
+
+garbage
+
+
+### Decode short URL
+# @no-redirect
+GET http://localhost:8080/bSpYm32Q
+
+
+### Fail to decode invalid short URL
+GET http://localhost:8080/invalid
+
+
+### Index page
+GET http://localhost:8080/
+Accept: text/html
