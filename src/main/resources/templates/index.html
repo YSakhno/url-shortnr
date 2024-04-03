@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<h1>URL Shortener</h1>
+<form id="shorten-form" th:action="@{/shorten}" method="post">
+    <label for="longUrl">URL to shorten:</label>
+    <input type="text" id="longUrl" name="longUrl" placeholder="Enter a long URL (e.g. https://google.com/)" required>
+    <input type="submit" value="Shorten">
+</form>
+<div id="result" style="display: none;">
+    Short URL: <a id="shortUrl"></a>
+</div>
+
+<script>
+    document.getElementById("shorten-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const longUrl = event.target.elements.longUrl.value;
+
+        fetch("/shorten", {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain"
+            },
+            body: longUrl
+        })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error("Error shortening URL");
+                    }
+                })
+                .then((shortUrl) => {
+                    document.getElementById("shortUrl").innerText = shortUrl;
+                    document.getElementById("shortUrl").href = shortUrl;
+                    document.getElementById("result").style.display = "block";
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+    });
+</script>
+</body>
+</html>

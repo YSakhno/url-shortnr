@@ -11,6 +11,7 @@ spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
 database-h2 = { module = "com.h2database:h2", version.ref = "h2Database" }
 spring-boot-bom = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "springBoot" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 testing-junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
@@ -18,4 +19,9 @@ testing-junit-platform = { module = "org.junit.platform:junit-platform-launcher"
 testing-spring-boot = { module = "org.springframework.boot:spring-boot-starter-test" }
 
 [bundles]
-spring-boot = [ "spring-boot-starter-data-jpa", "spring-boot-starter-validation", "spring-boot-starter-web" ]
+spring-boot = [
+    "spring-boot-starter-data-jpa",
+    "spring-boot-starter-thymeleaf",
+    "spring-boot-starter-validation",
+    "spring-boot-starter-web",
+]
