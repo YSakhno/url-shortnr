@@ -1,0 +1,56 @@
+### Gradle ###
+/.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Eclipse, STS ###
+.metadata/
+.settings/
+.sts4-cache/
+bin/
+.apt_generated
+.checkstyle
+.classpath
+.factorypath
+.loadpath
+.project
+.springBeans
+*.launch
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea/
+out/
+*.iml
+*.ipr
+*.iws
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### SublimeText + TextMate ###
+*.sublime-workspace
+*.sublime-project
+*.tmproj
+*.tmproject
+
+### Vim ###
+*.sw[op]
+
+### Mac OSX + Windows ###
+.DS_Store
+Thumbs.db
+
+### Project-specific ###
+/tmp/
