@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.CREATED;
 
 /**
  * REST controller for the URL Shortening service.
@@ -47,7 +47,7 @@ public class UrlShorteningController {
     @PostMapping("/shorten")
     public ResponseEntity<String> shortenUrl(@RequestBody @Valid @URL String longUrl) {
         final var shortUrl = urlShorteningService.shortenUrl(longUrl);
-        return new ResponseEntity<>(shortUrl, OK);
+        return new ResponseEntity<>(shortUrl, CREATED);
     }
 
     @GetMapping("/{shortUrl}")

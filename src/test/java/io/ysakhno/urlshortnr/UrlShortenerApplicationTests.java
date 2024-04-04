@@ -33,7 +33,7 @@ class UrlShortenerApplicationTests {
         final var shortUrlCode = mockMvc.perform(post("/shorten")
                         .contentType("text/plain")
                         .content(longUrl))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
         assertThat(shortUrlCode).matches("[A-Za-z0-9]{8}");
@@ -51,12 +51,12 @@ class UrlShortenerApplicationTests {
         final var shortUrlCode1 = mockMvc.perform(post("/shorten")
                         .contentType("text/plain")
                         .content(url1))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         final var shortUrlCode2 = mockMvc.perform(post("/shorten")
                         .contentType("text/plain")
                         .content(url2))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
         assertNotEquals(shortUrlCode1, shortUrlCode2);
@@ -76,12 +76,12 @@ class UrlShortenerApplicationTests {
         final var shortUrlCode1 = mockMvc.perform(post("/shorten")
                         .contentType("text/plain")
                         .content(longUrl))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         final var shortUrlCode2 = mockMvc.perform(post("/shorten")
                         .contentType("text/plain")
                         .content(longUrl))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
 
         assertNotEquals(shortUrlCode1, shortUrlCode2);
