@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -38,6 +39,57 @@ class UrlShortenerApplicationTests {
         assertThat(shortUrlCode).matches("[A-Za-z0-9]{8}");
 
         mockMvc.perform(get("/{shortUrl}", shortUrlCode))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", longUrl));
+    }
+
+    @Test
+    @DisplayName("should successfully encode several different URLs")
+    void shouldSuccessfullyEncodeSeveralDifferentUrLs() throws Exception {
+        final var url1 = "https://google.com/";
+        final var url2 = "https://youtube.com/";
+        final var shortUrlCode1 = mockMvc.perform(post("/shorten")
+                        .contentType("text/plain")
+                        .content(url1))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        final var shortUrlCode2 = mockMvc.perform(post("/shorten")
+                        .contentType("text/plain")
+                        .content(url2))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        assertNotEquals(shortUrlCode1, shortUrlCode2);
+
+        mockMvc.perform(get("/{shortUrl}", shortUrlCode1))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", url1));
+        mockMvc.perform(get("/{shortUrl}", shortUrlCode2))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", url2));
+    }
+
+    @Test
+    @DisplayName("should shorten the same URL into different code each time")
+    void shouldShortenTheSameUrlIntoDifferentCodeEachTime() throws Exception {
+        final var longUrl = "https://stackoverflow.com";
+        final var shortUrlCode1 = mockMvc.perform(post("/shorten")
+                        .contentType("text/plain")
+                        .content(longUrl))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        final var shortUrlCode2 = mockMvc.perform(post("/shorten")
+                        .contentType("text/plain")
+                        .content(longUrl))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        assertNotEquals(shortUrlCode1, shortUrlCode2);
+
+        mockMvc.perform(get("/{shortUrl}", shortUrlCode1))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", longUrl));
+        mockMvc.perform(get("/{shortUrl}", shortUrlCode2))
                 .andExpect(status().isFound())
                 .andExpect(header().string("Location", longUrl));
     }
