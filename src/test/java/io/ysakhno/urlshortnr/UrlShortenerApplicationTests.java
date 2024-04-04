@@ -13,6 +13,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Integration tests for the URL Shortener application.
+ *
+ * @author Yuri Sakhno
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 class UrlShortenerApplicationTests {

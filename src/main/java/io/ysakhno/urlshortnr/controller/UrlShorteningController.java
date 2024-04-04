@@ -1,6 +1,7 @@
 package io.ysakhno.urlshortnr.controller;
 
 import io.ysakhno.urlshortnr.service.UrlShorteningService;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import java.io.IOException;
@@ -16,13 +17,30 @@ import org.springframework.web.bind.annotation.RestController;
 import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
+/**
+ * REST controller for the URL Shortening service.
+ *
+ * @author Yuri Sakhno
+ */
 @RestController
 public class UrlShorteningController {
 
+    /**
+     * The URL shortening service used to actually shorten URLs and to retrieve and expand previously shortened URLs by
+     * their code.
+     */
+    @Nonnull
     private final UrlShorteningService urlShorteningService;
 
+    /**
+     * Creates a new instance of the {@link UrlShorteningController} with the specified URL shortening service
+     * instance.
+     *
+     * @param urlShorteningService the URL shortening service instance to initialize the URL Shortening
+     *         controller being created with. Cannot be {@code null}.
+     */
     @Autowired
-    public UrlShorteningController(UrlShorteningService urlShorteningService) {
+    public UrlShorteningController(@Nonnull UrlShorteningService urlShorteningService) {
         this.urlShorteningService = urlShorteningService;
     }
 
